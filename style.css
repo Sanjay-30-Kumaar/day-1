@@ -208,30 +208,44 @@ footer {
 
     .site-header {
         flex-direction: column;
-
         gap: 15px;
+        padding: 20px 5%;
     }
-
 
     nav {
         flex-wrap: wrap;
-
         justify-content: center;
+        gap: 12px;
     }
 
+    main {
+        width: 90%;
+    }
+
+    .hero {
+        min-height: 350px;
+    }
 
     .hero h1 {
         font-size: 2.2rem;
     }
 
-
     .skills-grid {
         grid-template-columns: 1fr;
     }
 
-
     section {
         padding: 50px 0;
+    }
+
+    .skill-card,
+    .project-card {
+        padding: 20px;
+    }
+
+    button {
+        width: 100%;
+        max-width: 300px;
     }
 
 }
