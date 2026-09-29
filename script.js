@@ -3,7 +3,9 @@ const quoteText = document.querySelector("#quote-text");
 
 quoteButton.addEventListener("click", async () => {
 
-    quoteText.textContent = "Loading...";
+    quoteButton.disabled = true;
+    quoteButton.textContent = "Loading...";
+    quoteText.textContent = "Fetching a quote...";
 
     try {
 
@@ -12,10 +14,16 @@ quoteButton.addEventListener("click", async () => {
         );
 
         if (!response.ok) {
-            throw new Error("Failed to fetch quote");
+            throw new Error(
+                `API request failed: ${response.status}`
+            );
         }
 
         const data = await response.json();
+
+        if (!data.quote || !data.author) {
+            throw new Error("Invalid quote data received");
+        }
 
         quoteText.textContent =
             `"${data.quote}" — ${data.author}`;
@@ -25,6 +33,12 @@ quoteButton.addEventListener("click", async () => {
         quoteText.textContent =
             "Unable to load a quote. Please try again.";
 
-        console.error(error);
+        console.error("Quote API error:", error);
+
+    } finally {
+
+        quoteButton.disabled = false;
+        quoteButton.textContent = "Get Random Quote";
+
     }
 });
